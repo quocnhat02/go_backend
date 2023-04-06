@@ -35,13 +35,17 @@ const Header = () => {
         <Item key='setting:1'>Op 1</Item>
         <Item key='setting:2'>Op 2</Item>
       </SubMenu>
-      <Item key='register' className='float-end' icon={<UserAddOutlined />}>
+      <Item
+        key='register'
+        style={{ float: 'right' }}
+        icon={<UserAddOutlined />}
+      >
         <Link to='/register' style={{ textDecoration: 'none' }}>
           Register
         </Link>
       </Item>
 
-      <Item key='login' className='float-end' icon={<UserOutlined />}>
+      <Item key='login' style={{ float: 'right' }} icon={<UserOutlined />}>
         <Link to='/login' style={{ textDecoration: 'none' }}>
           Login
         </Link>
