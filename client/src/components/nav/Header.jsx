@@ -7,6 +7,8 @@ import {
 import { Menu } from 'antd';
 import { useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
@@ -21,27 +23,29 @@ const Header = () => {
       onClick={handleClick}
       selectedKeys={[current]}
       mode='horizontal'
-      className='d-flex justify-content-between'
+      className='d-block'
     >
-      <div>
-        <Item key='home' icon={<AppstoreOutlined />}>
+      <Item key='home' icon={<AppstoreOutlined />}>
+        <Link to='/' style={{ textDecoration: 'none' }}>
           Home
-        </Item>
+        </Link>
+      </Item>
 
-        <SubMenu icon={<SettingOutlined />} title='Username'>
-          <Item key='setting:1'>Op 1</Item>
-          <Item key='setting:2'>Op 2</Item>
-        </SubMenu>
-      </div>
-      <div>
-        <Item key='register' icon={<UserAddOutlined />}>
+      <SubMenu icon={<SettingOutlined />} title='Username'>
+        <Item key='setting:1'>Op 1</Item>
+        <Item key='setting:2'>Op 2</Item>
+      </SubMenu>
+      <Item key='register' className='float-end' icon={<UserAddOutlined />}>
+        <Link to='/register' style={{ textDecoration: 'none' }}>
           Register
-        </Item>
+        </Link>
+      </Item>
 
-        <Item key='login' icon={<UserOutlined />}>
+      <Item key='login' className='float-end' icon={<UserOutlined />}>
+        <Link to='/login' style={{ textDecoration: 'none' }}>
           Login
-        </Item>
-      </div>
+        </Link>
+      </Item>
     </Menu>
   );
 };
