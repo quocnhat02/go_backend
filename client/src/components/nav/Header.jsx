@@ -1,51 +1,48 @@
 import {
   AppstoreOutlined,
-  MailOutlined,
   SettingOutlined,
+  UserOutlined,
+  UserAddOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useState } from 'react';
-const items = [
-  {
-    label: 'Home',
-    key: 'mail',
-    icon: <MailOutlined />,
-  },
-  {
-    label: 'Register',
-    key: 'SubMenu',
-    icon: <SettingOutlined />,
-    children: [
-      {
-        type: 'group',
-        label: 'Item 1',
-        children: [
-          {
-            label: 'Option 1',
-            key: 'setting:1',
-          },
-          {
-            label: 'Option 2',
-            key: 'setting:2',
-          },
-        ],
-      },
-    ],
-  },
-];
+
+const { SubMenu, Item } = Menu;
+
 const Header = () => {
-  const [current, setCurrent] = useState('mail');
-  const onClick = (e) => {
-    console.log('click ', e);
+  const [current, setCurrent] = useState('home');
+
+  const handleClick = (e) => {
     setCurrent(e.key);
   };
+
   return (
     <Menu
-      onClick={onClick}
+      onClick={handleClick}
       selectedKeys={[current]}
       mode='horizontal'
-      items={items}
-    />
+      className='d-flex justify-content-between'
+    >
+      <div>
+        <Item key='home' icon={<AppstoreOutlined />}>
+          Home
+        </Item>
+
+        <SubMenu icon={<SettingOutlined />} title='Username'>
+          <Item key='setting:1'>Op 1</Item>
+          <Item key='setting:2'>Op 2</Item>
+        </SubMenu>
+      </div>
+      <div>
+        <Item key='register' icon={<UserAddOutlined />}>
+          Register
+        </Item>
+
+        <Item key='login' icon={<UserOutlined />}>
+          Login
+        </Item>
+      </div>
+    </Menu>
   );
 };
 export default Header;
