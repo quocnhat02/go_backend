@@ -2,10 +2,18 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "net": false,
+    "tls": false
+  },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
     "antd": "^5.4.0",
     "cra-template": "1.2.0",
+    "dotenv": "^16.0.3",
     "firebase": "^9.19.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
