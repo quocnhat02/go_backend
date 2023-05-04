@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
-  AppstoreOutlined,
-  MailOutlined,
   SettingOutlined,
   HomeOutlined,
+  UserAddOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 
@@ -14,8 +14,8 @@ const items = [
     icon: <HomeOutlined />,
   },
   {
-    label: 'Register',
-    key: 'register',
+    label: 'More',
+    key: 'more',
     icon: <SettingOutlined />,
     children: [
       {
@@ -48,13 +48,23 @@ const items = [
       },
     ],
   },
+  {
+    label: 'Login',
+    key: 'login',
+    icon: <UserOutlined />,
+    className: 'ms-auto',
+  },
+  {
+    label: 'Register',
+    key: 'register',
+    icon: <UserAddOutlined />,
+  },
 ];
 
 const Header = () => {
-  const [current, setCurrent] = useState('mail');
+  const [current, setCurrent] = useState('home');
 
   const onClick = (e) => {
-    console.log('click ', e);
     setCurrent(e.key);
   };
 
@@ -64,6 +74,7 @@ const Header = () => {
       selectedKeys={[current]}
       mode='horizontal'
       items={items}
+      className={items.className}
     />
   );
 };
