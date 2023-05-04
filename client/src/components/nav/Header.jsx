@@ -6,10 +6,11 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
+import { Link } from 'react-router-dom';
 
 const items = [
   {
-    label: 'Home',
+    label: <Link to={'/'}>Home</Link>,
     key: 'home',
     icon: <HomeOutlined />,
   },
@@ -49,13 +50,13 @@ const items = [
     ],
   },
   {
-    label: 'Login',
+    label: <Link to={'/login'}>Login</Link>,
     key: 'login',
     icon: <UserOutlined />,
     className: 'ms-auto',
   },
   {
-    label: 'Register',
+    label: <Link to={'/register'}>Register</Link>,
     key: 'register',
     icon: <UserAddOutlined />,
   },
