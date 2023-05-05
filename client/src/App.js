@@ -19,7 +19,11 @@ function App() {
         <Route exact path='/' element={<Home />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
-        <Route exact path='/register/complete' element={<RegisterComplete />} />
+        <Route
+          exact
+          path='/register/complete'
+          element={<RegisterComplete />}
+        />
         <Route exact path='*' element={<h2>Not Found</h2>} />
       </Routes>
     </>
