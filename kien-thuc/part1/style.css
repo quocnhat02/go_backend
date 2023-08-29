@@ -35,6 +35,24 @@ body {
   width: calc(33.33% - 20px);
   word-break: break-word;
 }
+.tour-top {
+  position: relative;
+}
+
+.tour-price {
+  display: inline-block;
+  position: absolute;
+  top: 24px;
+  left: 30px;
+  padding: 5px 16px;
+  background-color: rgba(53, 57, 69, 0.8);
+  color: #fcfcfd;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  border-radius: 4px;
+}
 
 .tour-content {
   padding: 14px 20px;
