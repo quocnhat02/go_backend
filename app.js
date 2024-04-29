@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const authRoute = require('./routes/auth.route');
 
 require('dotenv').config();
+require('./helpers/init_mongodb');
 
 const app = express();
 
