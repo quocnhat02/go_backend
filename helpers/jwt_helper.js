@@ -45,7 +45,7 @@ module.exports = {
       const payload = {};
       const secret = process.env.REFRESH_TOKEN_SECRET;
       const options = {
-        expiresIn: '30s',
+        expiresIn: '1y',
         issuer: 'lightcodese.com',
         audience: userId,
       };
@@ -55,7 +55,7 @@ module.exports = {
         }
 
         client
-          .SET(userId, token, { EX: 30 })
+          .SET(userId, token, { EX: 365 * 24 * 60 * 60 })
           .then(() => {
             resolve(token);
           })
