@@ -56,4 +56,22 @@ module.exports = {
       });
     });
   },
+
+  verifyRefreshToken: (refreshToken) => {
+    return new Promise((resolve, reject) => {
+      Jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        (err, payload) => {
+          if (err) {
+            return reject(createError.Unauthorized());
+          }
+
+          const userId = payload.aud;
+
+          resolve(userId);
+        }
+      );
+    });
+  },
 };
