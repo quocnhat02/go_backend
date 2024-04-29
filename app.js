@@ -10,13 +10,15 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 app.use(morgan('dev'));
 
 app.use('/auth', authRoute);
-
-app.get('/', async (req, res, next) => {
-  res.send('Hello from express.');
-});
 
 app.use(async (req, res, next) => {
   next(createError.NotFound());
