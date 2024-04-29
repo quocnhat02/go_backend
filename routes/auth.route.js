@@ -2,7 +2,7 @@ const express = require('express');
 const createError = require('http-errors');
 const User = require('../models/user.model');
 const { authSchema } = require('../helpers/validation_schema');
-const { signAccessToken } = require('../helpers/jwt_helper');
+const { signAccessToken, signRefreshToken } = require('../helpers/jwt_helper');
 
 const router = express.Router();
 
@@ -17,10 +17,13 @@ router.post('/register', async (req, res, next) => {
 
     const user = new User(result);
     const savedUser = await user.save();
-    const accessToken = await signAccessToken(JSON.stringify(savedUser._id));
+    const userId = JSON.stringify(savedUser._id);
+    const accessToken = await signAccessToken(userId);
+    const refreshToken = await signRefreshToken(userId);
 
     res.json({
       accessToken,
+      refreshToken,
     });
   } catch (error) {
     if (error.isJoi === true) error.status = 422;
@@ -42,10 +45,13 @@ router.post('/login', async (req, res, next) => {
       throw createError.Unauthorized('Username/Password not valid.');
     }
 
-    const accessToken = await signAccessToken(JSON.stringify(user._id));
+    const userId = JSON.stringify(user._id);
+    const accessToken = await signAccessToken(userId);
+    const refreshToken = await signRefreshToken(userId);
 
     res.json({
       accessToken,
+      refreshToken,
     });
   } catch (error) {
     if (error.isJoi === true) {
