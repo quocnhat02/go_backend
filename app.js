@@ -6,14 +6,7 @@ const { verifyAccessToken } = require('./helpers/jwt_helper');
 
 require('dotenv').config();
 require('./helpers/init_mongodb');
-const client = require('./helpers/init_redis');
-
-client.connect();
-client.SET('foo', 'bar');
-
-client.GET('foo').then((data) => {
-  console.log('value:', data);
-});
+require('./helpers/init_redis').connect();
 
 const app = express();
 

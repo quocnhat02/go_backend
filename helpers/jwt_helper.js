@@ -1,5 +1,6 @@
 const Jwt = require('jsonwebtoken');
 const createError = require('http-errors');
+const client = require('./init_redis');
 
 module.exports = {
   signAccessToken: (userId) => {
@@ -44,7 +45,7 @@ module.exports = {
       const payload = {};
       const secret = process.env.REFRESH_TOKEN_SECRET;
       const options = {
-        expiresIn: '1y',
+        expiresIn: '30s',
         issuer: 'lightcodese.com',
         audience: userId,
       };
@@ -52,7 +53,17 @@ module.exports = {
         if (err) {
           return reject(createError.InternalServerError());
         }
-        resolve(token);
+
+        client
+          .SET(userId, token, { EX: 30 })
+          .then(() => {
+            resolve(token);
+          })
+          .catch((err) => {
+            console.log(err.message);
+            reject(createError.InternalServerError());
+            return;
+          });
       });
     });
   },
@@ -68,8 +79,17 @@ module.exports = {
           }
 
           const userId = payload.aud;
-
-          resolve(userId);
+          client
+            .GET(userId)
+            .then((result) => {
+              if (refreshToken === result) return resolve(userId);
+              reject(createError.Unauthorized());
+            })
+            .catch((err) => {
+              console.log(err.message);
+              reject(createError.InternalServerError());
+              return;
+            });
         }
       );
     });
