@@ -13,7 +13,7 @@ module.exports = {
       };
       Jwt.sign(payload, secret, options, (err, token) => {
         if (err) {
-          return reject(err);
+          return reject(createError.InternalServerError());
         }
         resolve(token);
       });
