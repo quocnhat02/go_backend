@@ -43,6 +43,26 @@ app.post('/single', async (req, res, next) => {
   }
 });
 
+app.post('/multiple', async (req, res, next) => {
+  try {
+    const files = req.files.mFiles;
+
+    const promises = files.map((file) => {
+      const fileName =
+        new Date().getTime().toString() + path.extname(file.name);
+      const savePath = path.join(__dirname, 'public', 'uploads', fileName);
+      return file.mv(savePath);
+    });
+
+    await Promise.all(promises);
+
+    res.redirect('/');
+  } catch (error) {
+    console.log(error);
+    res.send('Error uploading file.');
+  }
+});
+
 app.listen(5000, () => {
   console.log('Server running on port 5000');
 });
