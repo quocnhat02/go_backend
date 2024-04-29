@@ -6,7 +6,16 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(fileUpload());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: path.join(__dirname, 'tmp'),
+    createParentPath: true,
+    limits: {
+      fileSize: 2 * 1024 * 1024,
+    },
+  })
+);
 
 app.get('/', (req, res, next) => {
   res.render('index');
@@ -17,6 +26,14 @@ app.post('/single', async (req, res, next) => {
     const file = req.files.mFile;
     const fileName = new Date().getTime().toString() + path.extname(file.name);
     const savePath = path.join(__dirname, 'public', 'uploads', fileName);
+    if (file.truncated) {
+      throw new Error('File size is too big.');
+    }
+
+    if (file.mimetype !== 'image/jpeg') {
+      throw new Error('Only jpeg are supported.');
+    }
+
     await file.mv(savePath);
 
     res.redirect('/');

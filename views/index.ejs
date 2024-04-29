@@ -16,7 +16,13 @@
 
     <h3>Single file upload</h3>
     <form action="/single" method="post" enctype="multipart/form-data">
-      <input type="file" name="mFile" id="" required />
+      <input
+        type="file"
+        name="mFile"
+        id=""
+        required
+        accept="image/jpeg, image/png, image/svg+xml, application/pdf"
+      />
       <input type="submit" value="Upload" />
     </form>
   </body>
